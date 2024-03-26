@@ -37,10 +37,16 @@ public class LionTests {
         Mockito.verify(feline).getKittens();
         Assert.assertEquals(1, kittens);
     }
-
     @Test
     public void successDoesHaveManeLion() {
         boolean hasMane = lion.doesHaveMane();
         Assert.assertTrue(hasMane);
+    }
+    @Test
+    public void getFoodTest() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+        Assert.assertEquals(List.of("Животные", "Птицы", "Рыба"), lion.getFood());
+
     }
 }
