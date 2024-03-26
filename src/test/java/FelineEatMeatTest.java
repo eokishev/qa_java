@@ -21,19 +21,26 @@ public class FelineEatMeatTest {
         return new Object[][]{
                 {"Травоядное", List.of("Трава", "Различные растения")},
                 {"Хищник", List.of("Животные", "Птицы", "Рыба")},
-                {"Неизвестно", List.of("Неизвестный вид животного, используйте значение Травоядное или Хищник")},
         };
     }
 
     @Test
-    public void successGetFoodWithDifferentAnimalKind() {
-        List<String> result;
-        try {
-            Feline feline = new Feline();
-            result = feline.getFood(animalKind);
-        } catch (Exception exception) {
-            result = List.of(exception.getMessage());
-        }
+    public void successGetFoodWithDifferentAnimalKind() throws Exception {
+        Feline feline = new Feline();
+        List<String> result = feline.getFood(animalKind);
         Assert.assertEquals(food, result);
+    }
+    public static class FelineExceptionTest {
+
+        @Test
+        public void UnknownAnimalKindException() {
+            Feline feline = new Feline();
+            try {
+                feline.getFood("Неизвестно");
+                Assert.fail("Ожидается, что будет выдано исключение");
+            } catch (Exception e) {
+                Assert.assertEquals("Неизвестный вид животного, используйте значение Травоядное или Хищник", e.getMessage());
+            }
+        }
     }
 }
